@@ -198,9 +198,10 @@ Future<List<ImageInfo>> preloadImage({
     }
   }
 
-  stream.addListener(ImageStreamListener(listener, onError: errorListener));
+  final streamListener = ImageStreamListener(listener, onError: errorListener);
+  stream.addListener(streamListener);
   completer.future.then((List<ImageInfo> _) {
-    stream.removeListener(ImageStreamListener(listener));
+    stream.removeListener(streamListener);
   });
   return completer.future;
 }
